@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="MRH-api" />
+        <module name="MRH-backend" />
+        <module name="MRH-common" />
+        <module name="MRH-generator" />
+        <module name="renren-admin" />
+        <module name="renren-api" />
+        <module name="renren-common" />
+        <module name="renren-generator" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="hehui-admin" target="1.8" />
+      <module name="hehui-api" target="1.8" />
+      <module name="hehui-common" target="1.8" />
+      <module name="hehui-generator" target="1.8" />
+      <module name="hehui-security" target="1.8" />
+      <module name="MRH-api" target="1.8" />
+      <module name="MRH-backend" target="1.8" />
+      <module name="MRH-base" target="1.8" />
+      <module name="MRH-common" target="1.8" />
+      <module name="MRH-generator" target="1.8" />
+      <module name="renren-admin" target="1.8" />
+      <module name="renren-api" target="1.8" />
+      <module name="renren-common" target="1.8" />
+      <module name="renren-generator" target="1.8" />
+      <module name="renren-security" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

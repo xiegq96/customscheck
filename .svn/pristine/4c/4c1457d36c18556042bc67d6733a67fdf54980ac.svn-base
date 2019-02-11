@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="MRH-api:war">
+    <output-path>$PROJECT_DIR$/MRH-api/target</output-path>
+    <root id="archive" name="MRH-api.war">
+      <element id="artifact" artifact-name="MRH-api:war exploded" />
+    </root>
+  </artifact>
+</component>

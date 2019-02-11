@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MRH-api/MRH-api.iml" filepath="$PROJECT_DIR$/MRH-api/MRH-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MRH-backend/MRH-backend.iml" filepath="$PROJECT_DIR$/MRH-backend/MRH-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MRH-base.iml" filepath="$PROJECT_DIR$/MRH-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MRH-common/MRH-common.iml" filepath="$PROJECT_DIR$/MRH-common/MRH-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MRH-generator/MRH-generator.iml" filepath="$PROJECT_DIR$/MRH-generator/MRH-generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hehui-security.iml" filepath="$PROJECT_DIR$/hehui-security.iml" />
+    </modules>
+  </component>
+</project>

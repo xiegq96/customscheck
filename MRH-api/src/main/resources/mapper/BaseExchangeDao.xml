@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.bobo.fast.dao.BaseExchangeDao">
+    <insert id="addExchange" parameterType="cn.bobo.fast.entity.BaseExchange">
+        insert into base_exchange(
+            guid,
+            inital_request,
+            inital_response,
+            ebp_code,
+            pay_code,
+            pay_transaction_id,
+            total_amount,
+            currency,
+            ver_dept,
+            pay_type,
+            trading_time,
+            note
+        )values(
+            #{guid},
+            #{initalRequest},
+            #{initalResponse},
+            #{ebpCode},
+            #{payCode},
+            #{payTransactionId},
+            #{totalAmount},
+            #{currency},
+            #{verDept},
+            #{payType},
+            #{tradingTime},
+            #{note}
+        )
+    </insert>
+    <select id="getExchangeList" resultType="cn.bobo.fast.entity.BaseExchange">
+        select guid,
+                inital_request,
+                inital_response,
+                ebp_code,
+                pay_code,
+                pay_transaction_id,
+                total_amount,
+                currency,
+                ver_dept,
+                pay_type,
+                trading_time,
+                note
+        from base_exchange
+        where 1=1
+        <if test="guid != null and guid != ''">
+            and guid = #{guid}
+        </if>
+    </select>
+    <delete id="deleteExchange">
+        delete from
+        base_exchange
+        where
+        guid in
+        <foreach collection="guids" item="guid" open="(" separator="," close=")">
+            #{guid}
+        </foreach>
+    </delete>
+    <select id="getProductInfoByGuid" resultMap="ex_order_product">
+        select
+        e.guid,e.inital_request,e.inital_response,
+        e.ebp_code,e.pay_code,e.pay_transaction_id,
+        e.total_amount,e.currency,e.ver_dept,
+        e.pay_type,e.trading_time,e.note,
+        o.order_no,o.recp_name,o.recp_code,
+        o.recp_account,p.gname,p.item_link
+        from base_exchange e
+        left join base_order o on e.guid=o.guid
+        left join base_product p on o.order_no=p.order_no
+        where 1=1
+        <if test="guid != null and guid != ''">
+            and e.guid = #{guid}
+        </if>
+    </select>
+    <resultMap id="ex_order_product" type="cn.bobo.fast.bean.ExOrderProduct">
+        <result column="guid" property="guid" jdbcType="VARCHAR" />
+        <result column="inital_request" property="initalRequest" jdbcType="VARCHAR"/>
+        <result column="inital_response" property="guid" jdbcType="VARCHAR" />
+        <result column="inital_response" property="initalResponse" jdbcType="VARCHAR" />
+        <result column="ebp_code" property="ebpCode" jdbcType="VARCHAR" />
+        <result column="pay_code" property="payCode" jdbcType="VARCHAR" />
+        <result column="pay_transaction_id" property="payTransactionId" jdbcType="VARCHAR" />
+        <result column="total_amount" property="totalAmount"  />
+        <result column="currency" property="currency" jdbcType="VARCHAR" />
+        <result column="ver_dept" property="verDept" jdbcType="VARCHAR" />
+        <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+        <result column="trading_time" property="tradingTime"  />
+        <result column="note" property="note" jdbcType="VARCHAR" />
+        <collection property="ordInfo" ofType="cn.bobo.fast.bean.OrderProduct">
+            <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+            <result column="recp_account" property="recpAccount" jdbcType="VARCHAR" />
+            <result column="recp_code" property="recpCode" jdbcType="VARCHAR" />
+            <result column="recp_name" property="recpName" jdbcType="VARCHAR" />
+            <collection property="proInfo" ofType="cn.bobo.fast.bean.GoodsInfo">
+                <result column="gname" property="gname" jdbcType="VARCHAR"></result>
+                <result column="item_link" property="itemLink" jdbcType="VARCHAR"></result>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="getList" resultType="cn.bobo.fast.entity.BaseExchange">
+         select guid,
+                inital_request,
+                inital_response,
+                ebp_code,
+                pay_code,
+                pay_transaction_id,
+                total_amount,
+                currency,
+                ver_dept,
+                pay_type,
+                trading_time,
+                note
+        from base_exchange
+    </select>
+</mapper>

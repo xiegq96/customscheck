@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.bobo.fast.modules.sys.dao.DriveMonitorDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.bobo.fast.modules.sys.entity.DriveMonitorEntity" id="driveMonitorMap">
+        <result property="id" column="Id"/>
+        <result property="billNo" column="bill_no"/>
+        <result property="veNo" column="ve_no"/>
+        <result property="entryTime" column="entry_time"/>
+        <result property="sendstatus" column="sendstatus"/>
+        <result property="receivestatus" column="receivestatus"/>
+    </resultMap>
+
+
+</mapper>

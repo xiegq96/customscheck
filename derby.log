@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Wed Dec 26 17:45:42 CST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-0167-e9e7-ce69-0000055638c8 
+on database directory C:\Program Files\derby\db-derby-10.14.2.0-bin\db-derby-10.14.2.0-bin\bin\cardMouth with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
+Loaded from file:/C:/Program%20Files/maven3/MavenRepository/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_181-b13
+user.dir=C:\task\12_17\cardmouth-master\cardmouth-master
+os.name=Windows 7
+os.arch=amd64
+os.version=6.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

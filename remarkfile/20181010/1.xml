@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ZHUHAI_REP xmlns="http://www.cneport.com/cbo/dist/entity">
+  <BILL_NO>1</BILL_NO>
+  <STATUS>0</STATUS>
+  <IO_FLAG>0</IO_FLAG>
+  <VE_NO>1</VE_NO>
+  <ENTRY_TIME>20181010223223</ENTRY_TIME>
+  <GATE_TYPE>2</GATE_TYPE>
+  <TRADE_CO>351286006E</TRADE_CO>
+  <TRADE_NAME>福建跨境通电子商务有限公司</TRADE_NAME>
+  <NOTE></NOTE>
+</ZHUHAI_REP>

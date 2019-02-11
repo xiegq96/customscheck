@@ -1,0 +1,33 @@
+package cn.bobo.fast.modules.sys.service.impl;
+
+import org.springframework.stereotype.Service;
+import java.util.Map;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import cn.bobo.fast.common.utils.PageUtils;
+import cn.bobo.fast.common.utils.Query;
+
+import cn.bobo.fast.modules.sys.dao.DriveMonitorDao;
+import cn.bobo.fast.modules.sys.entity.DriveMonitorEntity;
+import cn.bobo.fast.modules.sys.service.DriveMonitorService;
+
+
+@Service("driveMonitorService")
+public class DriveMonitorServiceImpl extends ServiceImpl<DriveMonitorDao, DriveMonitorEntity> implements DriveMonitorService {
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+
+        params.put("sidx", "entry_time");
+        params.put("order", "DESC");
+
+        Page<DriveMonitorEntity> page = this.selectPage(
+                new Query<DriveMonitorEntity>(params).getPage(),
+                new EntityWrapper<DriveMonitorEntity>()
+        );
+
+        return new PageUtils(page);
+    }
+
+}

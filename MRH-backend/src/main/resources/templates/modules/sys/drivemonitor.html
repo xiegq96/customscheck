@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>卡口监控表</title>
+		<#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+			<#if shiro.hasPermission("sys:drivemonitor:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增入区车辆</a>
+			</#if>
+            <#if shiro.hasPermission("sys:drivemonitor:resend")>
+                <a class="btn btn-primary" @click="resend"><i class="fa fa-send"></i>&nbsp;重发</a>
+            </#if>
+            <#if shiro.hasPermission("sys:drivemonitor:updatestate")>
+                <a class="btn btn-primary" @click="updatestate"><i class="fa fa-refresh"></i>&nbsp;检查接收状态</a>
+            </#if>
+			<#if shiro.hasPermission("sys:drivemonitor:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+			<#if shiro.hasPermission("sys:drivemonitor:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+					<!--<div class="form-group">-->
+                        <!--<div class="col-sm-2 control-label">核放单编号</div>-->
+                        <!--<div class="col-sm-10">-->
+                            <!--<input type="text" class="form-control" v-model="driveMonitor.billNo" placeholder="核放单编号"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+					<div class="form-group">
+                        <div class="col-sm-2 control-label">车辆编号</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="driveMonitor.veNo" placeholder="车辆编号"/>
+                        </div>
+                    </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label">状态(S:放行 C:查验)</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="driveMonitor.status" value="S"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">进出区标志</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="driveMonitor.ioFlag" placeholder="I-入区 O-出区"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">关区代码</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="driveMonitor.customs" value="1501"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">进出区流向</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="driveMonitor.ioFlow" placeholder="0—国内、1—境外；"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">卡口类型</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="driveMonitor.gateType" placeholder="1：一线外卡口，2：二线外卡口、3：内卡口；"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">经营单位编号</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="driveMonitor.tradeCo" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">经营单位名称</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="driveMonitor.tradeName" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">备注</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="driveMonitor.note" />
+                </div>
+            </div>
+											                   <!-- <div class="form-group">
+                        <div class="col-sm-2 control-label">进场时间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="driveMonitor.entryTime" placeholder="进场时间"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">发送状态</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="driveMonitor.sendstatus" placeholder="发送状态"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">接收状态</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="driveMonitor.receivestatus" placeholder="接收状态"/>
+                        </div>
+                    </div>-->
+							            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="上传FTP"/>
+                <input type="button" class="btn btn-primary" @click="savelocal" value="保存"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/sys/drivemonitor.js?_${.now?long}"></script>
+</body>
+</html>

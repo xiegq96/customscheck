@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>表头信息</title>
+    <!--<style>-->
+        <!--.ui-jqgrid tr.jqgrow td { text-overflow : ellipsis; }-->
+    <!--</style>-->
+	<#include "/header.html">
+        </head>
+
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <div class="form-group col-sm-2">
+                <input type="text" class="form-control" v-model="q.guid" @keyup.enter="query" placeholder="系统序号">
+            </div>
+            <a class="btn btn-default" @click="query">查询</a>
+			<#if shiro.hasPermission("sys:dict:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</#if>
+		<!--	<#if shiro.hasPermission("sys:dict:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>-->
+			<#if shiro.hasPermission("sys:dict:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+
+    </div>
+
+    <div id="detail" v-show="detail" >
+        <form class="form-horizontal" v-for="(base,index) in baseInfo" >
+            <div class="form-group">
+                <label class="col-sm-2 control-label">系统序号:</label>
+                <div class="col-sm-10">
+                <span class="form-control" >{{base.guid}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">原始请求:</label>
+                <div class="col-sm-10">
+                  <span  class="form-control" style="height: 100px;overflow: auto">{{base.initalRequest}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">原始响应:</label>
+                <div class="col-sm-10">
+                    <span  class="form-control" style="height: 100px;overflow: auto">{{base.initalResponse}}</span>
+                </div>
+            </div>
+            <div class="form-group" >
+            <div class="form-group">
+                <label class="col-sm-2 control-label">电商平台代码:</label>
+                <div class="col-sm-10">
+                    <span  class="form-control">{{base.ebpCode}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">支付企业代码:</label>
+                <div class="col-sm-10">
+                    <span  class="form-control">{{base.payCode}}</span>
+                </div>
+            </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">交易流水号:</label>
+                    <div class="col-sm-10">
+                        <span  class="form-control">{{base.payTransactionId}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">交易金额:</label>
+                    <div class="col-sm-10">
+                        <span  class="form-control">{{base.totalAmount}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">币制:</label>
+                    <div class="col-sm-10">
+                        <span  class="form-control">{{base.currency}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">验核机构:</label>
+                    <div class="col-sm-10">
+                        <span  class="form-control">{{base.verDept}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">验核机构:</label>
+                    <div class="col-sm-10">
+                        <span  class="form-control">{{base.verDept}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">支付类型:</label>
+                    <div class="col-sm-10">
+                        <span  class="form-control">{{base.payType}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">交易成功时间:</label>
+                    <div class="col-sm-10">
+                        <span  class="form-control">{{base.tradingTime}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">备注:</label>
+                    <div class="col-sm-10">
+                        <span  class="form-control">{{base.note}}</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+														                    <div class="form-group">
+                        <div class="col-sm-2 control-label">系统序号</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="exchange.guid" placeholder="系统序号"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">原始请求</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="exchange.initalRequest" placeholder="原始请求"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">原始响应</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="exchange.initalResponse" placeholder="原始响应"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">电商平台代码</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="exchange.ebpCode" placeholder="电商平台代码"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">支付企业代码</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="exchange.payCode" placeholder="支付企业代码"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">交易流水号</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="exchange.payTransactionId" placeholder="交易流水号"/>
+                        </div>
+                    </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">交易金额</div>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" v-model="exchange.totalAmount" placeholder="交易金额"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">币制</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="exchange.currency" placeholder="币制"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">验核机构</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="exchange.verDept" placeholder="验核机构"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">支付类型</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="exchange.payType" placeholder="支付类型"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">交易成功时间</div>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" v-model="exchange.tradingTime" placeholder="交易成功时间"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">备注</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="exchange.note" placeholder="备注"/>
+                </div>
+            </div>
+							            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/base/exchange.js?_${.now?long}"></script>
+</body>
+</html>

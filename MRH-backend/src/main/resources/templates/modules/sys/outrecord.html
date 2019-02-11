@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>出区记录</title>
+    <#include "/header.html">
+        </head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <a class="btn btn-primary" @click="generateList" ><i class="fa fa-files-o"></i>&nbsp;生成结案单</a>
+            <a class="btn btn-primary" ><i class="fa fa-upload"></i>&nbsp;上传FTTP</a>
+
+
+        </div>
+        <table id="jqGrid" >
+
+        </table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <!-- <div v-show="true" class="panel panel-default">
+         <div class="panel-heading">{{title}}</div>
+         <form class="form-horizontal">
+
+                     <div class="form-group">
+                         <div class="col-sm-2 control-label">车辆编号</div>
+                         <div class="col-sm-10">
+                             <input type="text" class="form-control" v-model="driveMonitor.veNo" placeholder="车辆编号"/>
+                         </div>
+                     </div>
+
+
+             <div class="form-group">
+                 <div class="col-sm-2 control-label">状态(S:放行 C:查验)</div>
+                 <div class="col-sm-10">
+                     <input type="text" class="form-control" v-model="driveMonitor.status" value="S"/>
+                 </div>
+             </div>
+             <div class="form-group">
+                 <div class="col-sm-2 control-label">进出区标志</div>
+                 <div class="col-sm-10">
+                     <input type="text" class="form-control" v-model="driveMonitor.ioFlag" placeholder="I-入区 O-出区"/>
+                 </div>
+             </div>
+             <div class="form-group">
+                 <div class="col-sm-2 control-label">关区代码</div>
+                 <div class="col-sm-10">
+                     <input type="text" class="form-control" v-model="driveMonitor.customs" value="1501"/>
+                 </div>
+             </div>
+             <div class="form-group">
+                 <div class="col-sm-2 control-label">进出区流向</div>
+                 <div class="col-sm-10">
+                     <input type="text" class="form-control" v-model="driveMonitor.ioFlow" placeholder="0—国内、1—境外；"/>
+                 </div>
+             </div>
+             <div class="form-group">
+                 <div class="col-sm-2 control-label">卡口类型</div>
+                 <div class="col-sm-10">
+                     <input type="text" class="form-control" v-model="driveMonitor.gateType" placeholder="1：一线外卡口，2：二线外卡口、3：内卡口；"/>
+                 </div>
+             </div>
+             <div class="form-group">
+                 <div class="col-sm-2 control-label">经营单位编号</div>
+                 <div class="col-sm-10">
+                     <input type="text" class="form-control" v-model="driveMonitor.tradeCo" />
+                 </div>
+             </div>
+             <div class="form-group">
+                 <div class="col-sm-2 control-label">经营单位名称</div>
+                 <div class="col-sm-10">
+                     <input type="text" class="form-control" v-model="driveMonitor.tradeName" />
+                 </div>
+             </div>
+             <div class="form-group">
+                 <div class="col-sm-2 control-label">备注</div>
+                 <div class="col-sm-10">
+                     <input type="text" class="form-control" v-model="driveMonitor.note" />
+                 </div>
+             </div>
+
+
+         </form>
+     </div>-->
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/sys/outrecord.js?_${.now?long}"></script>
+</body>
+</html>

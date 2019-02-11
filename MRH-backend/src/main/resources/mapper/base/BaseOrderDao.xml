@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.bobo.fast.modules.base.dao.BaseOrderDao">
+    <select id="getListByOrderNo" resultType="BaseOrder" >
+        select guid,
+                order_no,
+                recp_account,
+                recp_code,
+                recp_name
+            FROM base_order
+            where
+            order_no = #{orderNo}
+    </select>
+    <insert id="addOrder" parameterType="cn.bobo.fast.modules.base.entity.BaseOrder">
+        insert into base_order(
+          guid,
+          order_no,
+          recp_account,
+          recp_code,
+          recp_name
+        )values(
+          #{guid},
+          #{orderNo},
+          #{recpAccount},
+          #{recpCode},
+          #{recpName}
+        )
+    </insert>
+    <select id="getOrderProduct" resultMap="OrderProductMap">
+        select  o.guid,
+                o.order_no,
+                o.recp_account,
+                o.recp_code,
+                o.recp_name,
+                p.gname,
+                p.item_link
+        FROM base_order o
+        LEFT JOIN base_product p on p.order_no=o.order_no
+        where 1=1
+        <if test="orderNo != null and orderNo != ''">
+           and o.order_no=#{orderNo};
+        </if>
+    </select>
+    <resultMap id="OrderProductMap" type="cn.bobo.fast.modules.base.bean.OrderProduct">
+        <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+        <result column="recp_account" property="recpAccount" jdbcType="VARCHAR" />
+        <result column="recp_code" property="recpCode" jdbcType="VARCHAR" />
+        <result column="recp_name" property="recpName" jdbcType="VARCHAR" />
+        <collection property="goodsInfo" ofType="cn.bobo.fast.modules.base.bean.GoodsInfo">
+            <result column="gname" property="gname" jdbcType="VARCHAR"></result>
+            <result column="item_link" property="itemLink" jdbcType="VARCHAR"></result>
+        </collection>
+    </resultMap>
+    <delete id="deleteOrder">
+        delete from
+        base_order
+        where
+        order_no in
+        <foreach item="ordNo"  collection="orderNos" open="(" separator="," close=")">
+            #{ordNo,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+    <select id="getExchangeByOrderNo" resultType="cn.bobo.fast.modules.base.entity.BaseExchange">
+           select   e.guid,
+                    e.inital_request,
+                    e.inital_response,
+                    e.ebp_code,
+                    e.pay_code,
+                    e.pay_transaction_id,
+                    e.total_amount,
+                    e.currency,
+                    e.ver_dept,
+                    e.pay_type,
+                    e.trading_time,
+                    e.note
+            from base_order o,base_exchange e
+            where o.guid = e.guid
+            <if test="orderNo != null and orderNo != ''">
+                and o.order_no = #{orderNo}
+            </if>
+    </select>
+</mapper>
