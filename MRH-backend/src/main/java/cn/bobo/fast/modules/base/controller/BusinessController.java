@@ -19,17 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/receive")
-@Api(tags="处理海关数据接口")
-public class ReceiveHandleController {
+@RequestMapping("/business")
+@Api(tags="电商平台")
+public class BusinessController {
     @Autowired
     private PayExchangeInfoService payExchangeInfoService;
 
-    @CustomsLog("商家平台")
+    @CustomsLog("电商平台数据上传")
     @PostMapping("/addAllInfo")
-    @ApiOperation(value = "处理海关数据接口")
+    @ApiOperation(value = "电商平台数据上传接口")
+    @ApiParam(name="payExchange",value="传入json格式",required=true)
     public ReturnData addAllInfo(
-            @ApiParam(name="表头、订单、商品信息",value="传入json格式",required=true)
             @RequestBody PayExchange payExchange) {
       if(payExchangeInfoService.addAllInfo(JSON.toJSONString(payExchange))){
           return CommonReturnUtil.success();

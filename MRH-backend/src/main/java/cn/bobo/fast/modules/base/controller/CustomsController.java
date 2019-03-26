@@ -1,4 +1,4 @@
-package cn.bobo.fast.modules.encrypt.controller;
+package cn.bobo.fast.modules.base.controller;
 
 import cn.bobo.fast.common.annotation.CustomsLog;
 import cn.bobo.fast.modules.base.bean.OrderProduct;
@@ -31,16 +31,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.net.ssl.SSLContext;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
 @Controller
-@RequestMapping("/receive")
-@Api(tags="加签")
-
-public class newReceiveController {
+@RequestMapping("/customs")
+@Api(tags="海关抽检")
+public class CustomsController {
 	public static final String CHARSET = "UTF-8";
 //	public static final String testPayInfo = "{ \"sessionID\": \"ly6587-9foejf66-25324468\", \t\"payExchangeInfoHead\": { \t\t\"guid\": \"fe2374-8fnejf97-32839218\", \t\t\"initalRequest\": \"https://openapi.alipay.com/gateway.do?timestamp=2013-01-01 08:08:08&method=alipay.trade.pay&app_id=13580&sign_type=RSA2&sign=ERITJKEIJKJHKKKKKKKHJEREEEEEEEEEEE&version=1.0&charset=GBK&biz_content=\\n {\\n\\\"out_trade_no\\\":\\\"20150320010101001\\\",\\n\\\"scene\\\":\\\"bar_code\\\",\\n\\\"auth_code\\\":\\\"28763443825664394\\\",\\n\\\"product_code\\\":\\\"FACE_TO_FACE_PAYMENT\\\",\\n\\\"subject\\\":\\\"Iphone6 16G\\\",\\n\\\"buyer_id\\\":\\\"2088202954065786\\\",\\n\\\"seller_id\\\":\\\"2088102146225135\\\",\\n\\\"total_amount\\\":88.88,\\n\\\"trans_currency\\\":\\\"USD\\\",\\n\\\"settle_currency\\\":\\\"USD\\\",\\n\\\"discountable_amount\\\":8.88,\\n\\\"body\\\":\\\"Iphone6 16G\\\",\\n \\\"goods_detail\\\":[{\\n \\\"goods_id\\\":\\\"apple-01\\\",\\n\\\"goods_name\\\":\\\"ipad\\\",\\n\\\"quantity\\\":1,\\n\\\"price\\\":2000,\\n\\\"goods_category\\\":\\\"34543238\\\",\\n\\\"body\\\":\\\"特价手机\\\",\\n\\\"show_url\\\":\\\"http://www.alipay.com/xxx.jpg\\\"\\n }],\\n\\\"operator_id\\\":\\\"yx_001\\\",\\n\\\"store_id\\\":\\\"NJ_001\\\",\\n\\\"terminal_id\\\":\\\"NJ_T_001\\\",\\n\\\"extend_params\\\":{\\n\\\"sys_service_provider_id\\\":\\\"2088511833207846\\\",\\n\\\"industry_reflux_info\\\":\\\"{\\\\\\\\\\\\\\\"scene_code\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"metro_tradeorder\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"channel\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"xxxx\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"scene_data\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"asset_name\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"ALIPAY\\\\\\\\\\\\\\\"}}\\\",\\n\\\"card_type\\\":\\\"S0JP0000\\\"\\n },\\n\\\"timeout_express\\\":\\\"90m\\\",\\n\\\"auth_confirm_mode\\\":\\\"COMPLETE：转交易支付完成结束预授权;NOT_COMPLETE：转交易支付完成不结束预授权\\\",\\n\\\"terminal_params\\\":\\\"{\\\\\\\"key\\\\\\\":\\\\\\\"value\\\\\\\"}\\\"\\n }\\n\", \t\t\"initalResponse\": \"{\\n \\\"alipay_trade_pay_response\\\": {\\n \\\"code\\\": \\\"10000\\\",\\n \\\"msg\\\": \\\"Success\\\",\\n \\\"trade_no\\\": \\\"2013112011001004330000121536\\\",\\n \\\"out_trade_no\\\": \\\"6823789339978248\\\",\\n \\\"buyer_logon_id\\\": \\\"159****5620\\\",\\n \\\"total_amount\\\": 120.88,\\n \\\"trans_currency\\\": \\\"USD\\\",\\n \\\"settle_currency\\\": \\\"USD\\\",\\n \\\"settle_amount\\\": \\\"88.88\\\",\\n \\\"pay_currency\\\": \\\"CNY\\\",\\n \\\"pay_amount\\\": \\\"580.04\\\",\\n \\\"settle_trans_rate\\\": \\\"1\\\",\\n \\\"trans_pay_rate\\\": \\\"6.5261\\\",\\n \\\"receipt_amount\\\": \\\"88.88\\\",\\n \\\"buyer_pay_amount\\\": 8.88,\\n \\\"point_amount\\\": 8.12,\\n \\\"invoice_amount\\\": 12.5,\\n \\\"gmt_payment\\\": \\\"2014-11-27 15:45:57\\\",\\n \\\"fund_bill_list\\\": [\\n {\\n \\\"fund_channel\\\": \\\"ALIPAYACCOUNT\\\",\\n \\\"bank_code\\\": \\\"CEB\\\",\\n \\\"amount\\\": 10,\\n \\\"real_amount\\\": 11.21\\n }\\n ],\\n \\\"card_balance\\\": 98.23,\\n \\\"store_name\\\": \\\"证大五道口店\\\",\\n \\\"buyer_user_id\\\": \\\"2088101117955611\\\",\\n \\\"discount_goods_detail\\\": \\\"[{\\\\\\\"goods_id\\\\\\\":\\\\\\\"STANDARD1026181538\\\\\\\",\\\\\\\"goods_name\\\\\\\":\\\\\\\"雪碧\\\\\\\",\\\\\\\"discount_amount\\\\\\\":\\\\\\\"100.00\\\\\\\",\\\\\\\"voucher_id\\\\\\\":\\\\\\\"2015102600073002039000002D5O\\\\\\\"}]\\\",\\n \\\"voucher_detail_list\\\": [\\n {\\n \\\"id\\\": \\\"2015102600073002039000002D5O\\\",\\n \\\"name\\\": \\\"XX超市5折优惠\\\",\\n \\\"type\\\": \\\"ALIPAY_FIX_VOUCHER\\\",\\n \\\"amount\\\": 10,\\n \\\"merchant_contribute\\\": 9,\\n \\\"other_contribute\\\": 1,\\n \\\"memo\\\": \\\"学生专用优惠\\\",\\n \\\"template_id\\\": \\\"20171030000730015359000EMZP0\\\",\\n \\\"purchase_buyer_contribute\\\": 2.01,\\n \\\"purchase_merchant_contribute\\\": 1.03,\\n \\\"purchase_ant_contribute\\\": 0.82\\n }\\n ],\\n \\\"auth_trade_pay_mode\\\": \\\"CREDIT_PREAUTH_PAY\\\",\\n \\\"business_params\\\": \\\"{\\\\\\\"data\\\\\\\":\\\\\\\"123\\\\\\\"}\\\",\\n \\\"buyer_user_type\\\": \\\"PRIVATE\\\",\\n \\\"mdiscount_amount\\\": \\\"88.88\\\",\\n \\\"discount_amount\\\": \\\"88.88\\\"\\n },\\n \\\"sign\\\": \\\"ERITJKEIJKJHKKKKKKKHJEREEEEEEEEEEE\\\"\\n}\", \t\t\"ebpCode\": \"3512830031\", \t\t\"payCode\": \"4403160BUF\", \t\t\"payTransactionId\": \"201808010XTOO180881108351\", \t\t\"totalAmount\": 2000, \t\t\"currency\": \"502\", \t\t\"verDept\": \"1\", \t\t\"payType\": \"1\", \t\t\"tradingTime\": \"2018-07-05 13:33:20\", \t\t\"note\": \"备注\" \t}, \t\"payExchangeInfoLists\": [{ \t\t\t\"orderNo\": \"ord201808030001\", \t\t\t\"goodsInfo\":[                         {\"gname\": \"小米盒子\", \t\t\t\"itemLink\": \"http://click.simba.taobao.com/cc_im?spm=a2e15.8261149.07626516002.1&p=?í??&s=1648065802&k=525&clk1=9f73e9cdcce965d198471b70ed0bd643&e=BmEuJDus6V0PZbqH6AbTJV0AKPHu3YhwVj/tY3U/BPnJRCjFyFQ8GHxmrU6Q+bkjDDPHzLdwU/etpQpyzbOjC5wBu0ordUSSMi7bCqPy47R1nIOYRCll+4+g7T1j2K+vML5LpUxRY23BdDKBL+XYG61TuZ6KTbzphgvsV4Ojz5jpcmo9XCws//tnCtUX8NyE5jc7bsfu1N4M1tX0LAzVL8Q/8Cb3PXX0Lg5CK0SP9A1GPZR1xBhowNfNkjqys1bd5jWRIP4BomXImyoaJy83WdBjdkAzm/0nUGlUh8jQ4hq8tVvOYh5jaAjZNGP6kg4m3CTQUO/p1GO/6+U5DeLwJLMyCLM4UCxLwYmDL9sJHo9BAnbfln/8xq83b9LkfalG081DbhBf6xDt6WwO7bF5pQdW8K5ahpAflCUwHLCjWUurCsD9ob8Lq6NckDlv0x6dd6spMGSy0l3cJNBQ7+nUY0qfAtCS17uKWJHDCg4IHl7OvKn1XZO6wl90By37YYjBRw4q/RI+UHU=\"},                         {\"gname\": \"零食\", \t\t\t\"itemLink\": \"http://click.simba.taobao.com/cc_im?spm=a2e15.8261149.07626516002.1&p=?í??&s=1648065802&k=525&clk1=9f73e9cdcce965d198471b70ed0bd643&e=BmEuJDus6V0PZbqH6AbTJV0AKPHu3YhwVj/tY3U/BPnJRCjFyFQ8GHxmrU6Q+bkjDDPHzLdwU/etpQpyzbOjC5wBu0ordUSSMi7bCqPy47R1nIOYRCll+4+g7T1j2K+vML5LpUxRY23BdDKBL+XYG61TuZ6KTbzphgvsV4Ojz5jpcmo9XCws//tnCtUX8NyE5jc7bsfu1N4M1tX0LAzVL8Q/8Cb3PXX0Lg5CK0SP9A1GPZR1xBhowNfNkjqys1bd5jWRIP4BomXImyoaJy83WdBjdkAzm/0nUGlUh8jQ4hq8tVvOYh5jaAjZNGP6kg4m3CTQUO/p1GO/6+U5DeLwJLMyCLM4UCxLwYmDL9sJHo9BAnbfln/8xq83b9LkfalG081DbhBf6xDt6WwO7bF5pQdW8K5ahpAflCUwHLCjWUurCsD9ob8Lq6NckDlv0x6dd6spMGSy0l3cJNBQ7+nUY0qfAtCS17uKWJHDCg4IHl7OvKn1XZO6wl90By37YYjBRw4q/RI+UHU=\"}                          ], \t\t\t\"recpAccount\": \"6217850100007893905\", \t\t\t\"recpCode\": \"1105910159\", \t\t\t\"recpName\": \"天猫国际有限公司\" \t\t}, \t\t{ \t\t\t\"orderNo\": \"ord201808030002\", \t\t\t\"goodsInfo\":[                         {\"gname\": \"奶粉\", \t\t\t\"itemLink\": \"http://click.simba.taobao.com/cc_im?spm=a2e15.8261149.07626516002.1&p=?í??&s=1648065802&k=525&clk1=9f73e9cdcce965d198471b70ed0bd643&e=BmEuJDus6V0PZbqH6AbTJV0AKPHu3YhwVj/tY3U/BPnJRCjFyFQ8GHxmrU6Q+bkjDDPHzLdwU/etpQpyzbOjC5wBu0ordUSSMi7bCqPy47R1nIOYRCll+4+g7T1j2K+vML5LpUxRY23BdDKBL+XYG61TuZ6KTbzphgvsV4Ojz5jpcmo9XCws//tnCtUX8NyE5jc7bsfu1N4M1tX0LAzVL8Q/8Cb3PXX0Lg5CK0SP9A1GPZR1xBhowNfNkjqys1bd5jWRIP4BomXImyoaJy83WdBjdkAzm/0nUGlUh8jQ4hq8tVvOYh5jaAjZNGP6kg4m3CTQUO/p1GO/6+U5DeLwJLMyCLM4UCxLwYmDL9sJHo9BAnbfln/8xq83b9LkfalG081DbhBf6xDt6WwO7bF5pQdW8K5ahpAflCUwHLCjWUurCsD9ob8Lq6NckDlv0x6dd6spMGSy0l3cJNBQ7+nUY0qfAtCS17uKWJHDCg4IHl7OvKn1XZO6wl90By37YYjBRw4q/RI+UHU=\"},                         {\"gname\": \"拖鞋\", \t\t\t\"itemLink\": \"http://click.simba.taobao.com/cc_im?spm=a2e15.8261149.07626516002.1&p=?í??&s=1648065802&k=525&clk1=9f73e9cdcce965d198471b70ed0bd643&e=BmEuJDus6V0PZbqH6AbTJV0AKPHu3YhwVj/tY3U/BPnJRCjFyFQ8GHxmrU6Q+bkjDDPHzLdwU/etpQpyzbOjC5wBu0ordUSSMi7bCqPy47R1nIOYRCll+4+g7T1j2K+vML5LpUxRY23BdDKBL+XYG61TuZ6KTbzphgvsV4Ojz5jpcmo9XCws//tnCtUX8NyE5jc7bsfu1N4M1tX0LAzVL8Q/8Cb3PXX0Lg5CK0SP9A1GPZR1xBhowNfNkjqys1bd5jWRIP4BomXImyoaJy83WdBjdkAzm/0nUGlUh8jQ4hq8tVvOYh5jaAjZNGP6kg4m3CTQUO/p1GO/6+U5DeLwJLMyCLM4UCxLwYmDL9sJHo9BAnbfln/8xq83b9LkfalG081DbhBf6xDt6WwO7bF5pQdW8K5ahpAflCUwHLCjWUurCsD9ob8Lq6NckDlv0x6dd6spMGSy0l3cJNBQ7+nUY0qfAtCS17uKWJHDCg4IHl7OvKn1XZO6wl90By37YYjBRw4q/RI+UHU=\"}                          ], \t\t\t\"recpAccount\": \"6217850100007893905\", \t\t\t\"recpCode\": \"1105910159\", \t\t\t\"recpName\": \"天猫国际有限公司\" \t\t} \t], \t\"serviceTime\": 1533282603450, \t\"certNo\":\"012c14a9\", \t\"signValue\":\"123\" } ";
 	@Autowired
@@ -49,10 +49,10 @@ public class newReceiveController {
 	private BaseOrderService baseOrderService;
 
 	@ResponseBody
-	@ApiOperation(value = "数据处理")
+	@ApiOperation(value = "海关抽检接口")
 	@PostMapping("/platDataOpen")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name="openReq",value ="session值",paramType = "query" ,dataType = "json")
+			@ApiImplicitParam(name="openReq",value ="请求json串",paramType = "query" ,dataType = "json")
 	})
 	@CustomsLog("海关请求")
 	public Map platDataOpen(@NotNull(message = "openReq值为空")@RequestParam String openReq) throws Exception {
@@ -64,17 +64,17 @@ public class newReceiveController {
 			String orderNo = paramJson.getString("orderNo");
 			List<OrderProduct> orderProduct = baseOrderService.getOrderProduct(orderNo); // 订单商品
 			BaseExchange exchange = baseOrderService.getExchangeByOrderNo(orderNo); // 表头信息
-				// 将查询到的订单商品详情转换为JSON字符串
+			// 将查询到的订单商品详情转换为JSON字符串
 			String orderProductStr = JSON.toJSONString(orderProduct);
 			System.out.println("订单商品的json字符串" + orderProductStr);
-				// 将订单对应的表头信息转换为json字符串
+			// 将订单对应的表头信息转换为json字符串
 			String exchangeStr = JSON.toJSONString(exchange);
 			System.out.println("订单商品对象：" + orderProductStr);
-				// 将订单对应的表头信息转化为json对象
+			// 将订单对应的表头信息转化为json对象
 			JSONObject exchangeJsStr = JSONObject.parseObject(exchangeStr);
-				//  将订单商品数组格式的json字符串转换为list
+			//  将订单商品数组格式的json字符串转换为list
 			List<PayExchangeInfoLists> infoLists = JSONArray.parseArray(orderProductStr,PayExchangeInfoLists.class);
-				// 将JSON对象转换为java对象
+			// 将JSON对象转换为java对象
 			PayExchangeInfoHead head  = exchangeJsStr.toJavaObject(PayExchangeInfoHead.class);
 			Root root = new Root();
 			root.setSessionID(sessionId);  // sessionId
@@ -87,11 +87,6 @@ public class newReceiveController {
 			for(int i = 0;i < root.getPayExchangeInfoLists().get(0).getGoodsInfo().size();i++){
 				System.out.println("商品名称===================" + root.getPayExchangeInfoLists().get(0).getGoodsInfo().get(i).getGname());
 			}
-
-			//更改对象中的部分内容
-			/*if (root != null) {
-				setInitData(root,sessionId);
-			}*/
 
 			//生成需要加签的数据
 			signBeforeData = root.signBeforeData();

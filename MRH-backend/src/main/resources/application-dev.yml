@@ -5,13 +5,13 @@ spring:
 #       driverClassName: org.apache.derby.jdbc.EmbeddedDriver
         druid:
             first:  #数据源1
-                url: jdbc:mysql://localhost:3306/card_check?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+                url: jdbc:mysql://localhost:3306/customs_check?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
                 username: root
-                password: root
+                password: 7721085
             second:  #数据源2
-                url: jdbc:mysql://localhost:3306/card_check?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+                url: jdbc:mysql://localhost:3306/customs_check?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
                 username: root
-                password: root
+                password: 7721085
             initial-size: 10
             max-active: 100
             min-idle: 10

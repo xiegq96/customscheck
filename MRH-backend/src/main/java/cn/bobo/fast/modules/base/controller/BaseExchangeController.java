@@ -11,6 +11,7 @@ import cn.bobo.fast.modules.base.utils.ReturnData;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Map;
 @Api(tags="基础信息/表头")
 @RestController
 @RequestMapping("/baseExchange")
+@ApiIgnore
 public class BaseExchangeController {
     @Autowired
     private BaseExchangeService baseExchangeService;

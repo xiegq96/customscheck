@@ -6,7 +6,7 @@ server:
         min-spare-threads: 30
     port: 9898
     servlet:
-        context-path: /cardCheck
+        context-path: /customsCheck
 
 # mysql
 spring:

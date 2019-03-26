@@ -16,6 +16,8 @@ import cn.bobo.fast.modules.base.utils.ReturnData;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
+
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +31,7 @@ import java.util.Map;
 @Api(tags="订单接口")
 @RestController
 @RequestMapping("/baseOrder")
+@ApiIgnore
 public class BaseOrderController {
     @Autowired
     private BaseOrderService baseOrderService;
