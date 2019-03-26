@@ -4,12 +4,9 @@ package cn.bobo.fast.common.utils;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
-import sun.net.TelnetOutputStream;
-import sun.net.ftp.FtpProtocolException;
 
 import java.io.*;
 import java.net.SocketException;
-import java.util.Properties;
 
 
 

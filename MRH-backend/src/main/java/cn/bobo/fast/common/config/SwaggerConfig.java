@@ -53,7 +53,7 @@ public class SwaggerConfig{
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
             .title("微派互联")
-            .description("海关抽检系统api文档")
+            .description("海关抽检支付上报系统api文档")
             .termsOfServiceUrl("http://www.renren.io")
             .version("3.2.0")
             .build();
